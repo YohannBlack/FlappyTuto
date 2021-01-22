@@ -9,7 +9,7 @@ public class Etat {
     private final int DOWN_SPEED = 3;
     public static final int MAX_HEIGHT = 500;
     public static final int MIN_HEIGHT = 150;
-    public static final int WIDTH = 80;
+    public static final int MIN_WIDTH = -100;
     public final int HEIGHT_OVALE = 60;
 
     /*** Contante pour le nombre de points pour la ligne brisee ***/
