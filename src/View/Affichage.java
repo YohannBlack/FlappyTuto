@@ -76,6 +76,7 @@ public class Affichage extends JPanel{
         g.setColor(Color.RED);
         Point[] points = etat.getParcours();
         for(int i = 1; i < points.length; i++){
+            //On trace un lignee entre deux points
             Point previousPoint = transform(points[i-1], rapportW, rapportH, height);
             Point currentPoint = transform(points[i], rapportW, rapportH, height);
             g.drawLine(previousPoint.x, previousPoint.y, currentPoint.x, currentPoint.y);
@@ -87,9 +88,6 @@ public class Affichage extends JPanel{
         int y = (int) (height - (p.y - Etat.MIN_HEIGHT) * rapportH);
         return new Point(x, y);
     }
-
-
-
 
 
     /**
