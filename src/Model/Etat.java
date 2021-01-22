@@ -12,7 +12,7 @@ public class Etat {
     public static final int MIN_WIDTH = -100;
     public final int HEIGHT_OVALE = 60;
 
-    /*** Contante pour le nombre de points pour la ligne brisee ***/
+    /*** Constantes pour le nombre de points pour la ligne brisee ***/
     public static final int MAX_POINTS = 20;
 
     /*** Varaible de la hauteur de l'ovale ***/

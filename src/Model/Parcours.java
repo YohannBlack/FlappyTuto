@@ -10,7 +10,7 @@ public class Parcours {
     //Une variable Random qui va nous permettre d'initialiser les points du parcours
     private final Random rand = new Random();
 
-    //L'array des points du parcours
+    //L'arrayListe des points du parcours
     private ArrayList<Point> points = new ArrayList<Point>();
 
     /*** Constante pour l'avancement de la ligne ***/
@@ -23,6 +23,7 @@ public class Parcours {
 
     /**
      * Permet d'initialiser les positions des points du parcours
+     * de facon aleatoire
      */
     private void initPosition(){
         //Point de depart
