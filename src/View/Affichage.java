@@ -38,6 +38,7 @@ public class Affichage extends JPanel{
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        //On commence le thread pour l'affichage
         (new ThreadAffichage(this)).start();
     }
 
