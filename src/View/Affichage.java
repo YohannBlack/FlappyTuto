@@ -16,6 +16,8 @@ public class Affichage extends JPanel{
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;
 
+    public static int Y_OVALE;
+
 //    /*** Constantes de l'ovale ***/
 //    private final int X_OVAL = 400;
 //    private final int WIDTH_OVAL = 15;
@@ -39,7 +41,7 @@ public class Affichage extends JPanel{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //On commence le thread pour l'affichage
-        (new ThreadAffichage(this)).start();
+        (new ThreadAffichage(this, this.etat)).start();
     }
 
 
@@ -60,14 +62,14 @@ public class Affichage extends JPanel{
         double rapportH = height / (float)(Etat.MAX_HEIGHT - Etat.MIN_HEIGHT);
 
         int widthOvale = width / 20;
-        int xOvale = width / 4;
+        int xOvale = 90;
 
         int heightOvale = (int) (etat.HEIGHT_OVALE * rapportH);
-        int yOvale = (int) (height - (etat.getHauteur() - Etat.MIN_HEIGHT) * rapportH - heightOvale);
+        Y_OVALE = (int) (height - (etat.getHauteur() - Etat.MIN_HEIGHT) * rapportH - heightOvale);
 
         //Selectionne la couleur et dessin
         g.setColor(Color.BLACK);
-        g.drawOval(xOvale, yOvale, widthOvale, heightOvale);
+        g.drawOval(xOvale, Y_OVALE, widthOvale, heightOvale);
 
 
 
@@ -96,16 +98,18 @@ public class Affichage extends JPanel{
      */
     class ThreadAffichage extends Thread {
 
-        private final int DELAY = 30;
+        private final int DELAY = 150;
         private Affichage affichage;
+        private Etat etat;
 
-        public ThreadAffichage(Affichage affichage){
+        public ThreadAffichage(Affichage affichage, Etat etat){
             this.affichage = affichage;
+            this.etat = etat;
         }
 
         @Override
         public void run(){
-            while(true){
+            while(!etat.testPerdu()){
                 affichage.repaint();
                 try{
                     Thread.sleep(DELAY);

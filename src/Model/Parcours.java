@@ -1,5 +1,7 @@
 package Model;
 
+import View.Affichage;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
@@ -12,8 +14,13 @@ public class Parcours {
     //L'arrayListe des points du parcours
     private ArrayList<Point> points = new ArrayList<Point>();
 
+    private final int GAP = 75;
+
     /*** Constante pour l'avancement de la ligne ***/
     private final int SPEED = 2;
+
+    //Variable pour le score
+    private int score = 0;
 
     /*** Constructeur ***/
     public Parcours(){
@@ -26,12 +33,13 @@ public class Parcours {
      */
     private void initPosition(){
         //Point de depart
-        points.add(new Point(0, 0));
-        int x = 0;
+        Point p = new Point(20, Affichage.Y_OVALE);
+        points.add(p);
+        int x = p.x;
         //Points au hasard dans la fenetre
-        while(x < Etat.MAX_HEIGHT){
+        while(x < Etat.MAX_WIDTH){
             //On change le x
-            x += 10 + rand.nextInt(30);
+            x += GAP;
             //On creer un y random
             int y = Etat.MIN_HEIGHT + rand.nextInt(Etat.MAX_HEIGHT - Etat.MIN_HEIGHT);
             points.add(new Point (x, y));
@@ -49,6 +57,7 @@ public class Parcours {
 
     /**
      * Bouge, ajoute, et enleve les points
+     * Incremente le score aussi
      * @return une liste le points bouges
      */
     private ArrayList<Point> movedPoints(){
@@ -90,4 +99,18 @@ public class Parcours {
         }
         return res;
     }
+
+    /**
+     * Getter pour l'ecart entre les X des points
+     * @return l'ecart
+     */
+    public int getGAP(){
+        return this.GAP;
+    }
+
+    /**
+     * GETTER pour le score
+     * @return le score
+     */
+    public int getScore(){ return this.score; }
 }
