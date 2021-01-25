@@ -24,16 +24,18 @@ public class Parcours {
 
     /*** Constructeur ***/
     public Parcours(){
-        initPosition();
+        initParcours();
     }
 
     /**
      * Permet d'initialiser les positions des points du parcours
      * de facon aleatoire
      */
-    private void initPosition(){
+    private void initParcours(){
+        int rapportH = (int) (Affichage.HEIGHT / (float) (Etat.MAX_HEIGHT - Etat.MIN_HEIGHT));
+        int heightOvale = (int) (60 * rapportH);
         //Point de depart
-        Point p = new Point(20, Affichage.Y_OVALE);
+        Point p = new Point(90 + (Affichage.WIDTH/20)/2, 498 + heightOvale);
         points.add(p);
         int x = p.x;
         //Points au hasard dans la fenetre
@@ -56,45 +58,27 @@ public class Parcours {
     }
 
     /**
-     * Bouge, ajoute, et enleve les points
-     * Incremente le score aussi
-     * @return une liste le points bouges
-     */
-    private ArrayList<Point> movedPoints(){
-        //On creer notre liste qu'on voudra rendre
-        ArrayList<Point> res = new ArrayList<>();
-        //On parcours nos points
-        for(Point p : points){
-            //On regarde si le point est toujours dans les limites de la 'fenetre'
-            if((p.x - SPEED) < Etat.MIN_WIDTH) {
-                //On l'enleve si ce n'est pas le cas
-                points.remove(p);
-                //On creer un nouveau point a la fin de notre liste
-                points.add(randPoint(points.get(points.size()-1)));
-            } else {
-                //Sinon on fait bouger notre point vers l'arriere
-                p.x -= SPEED;
-                //On le rajoute a notre liste a rendre
-                res.add(p);
-            }
-        }
-        return res;
-    }
-
-    /**
-     * Change la position des points et
+     * Change la position des points
+     * Creer et enleve les points pour une ligne infini
      * @return les points a afficher
      */
     public Point[] getPoints(){
-        //La liste de points bouges
-        ArrayList<Point> mPoints = movedPoints();
+        //On prend le premier point du parcours
+        Point p = points.get(0);
+        //On verifie qu'il est toujours dans les limites qu'on a defini
+        if(p.x - SPEED < Etat.MIN_WIDTH) {
+            //Si ce n'est pas le cas on l'enleve
+            points.remove(p);
+            //Et on rajoute un point a la fin
+            points.add(randPoint(points.get(points.size() - 1)));
+        }
         //Le tableau de points a rendre
-        Point res[] = new Point[mPoints.size()];
+        Point res[] = new Point[points.size()];
         int i = 0;
         //On parcours tous les points deja bouge
-        for(Point p : mPoints) {
+        for(Point po : points) {
             //On les rajoute au tableau qu'on passera a l'affichage
-            res[i] = p;
+            res[i] = po;
             i = i+1;
         }
         return res;
@@ -113,4 +97,12 @@ public class Parcours {
      * @return le score
      */
     public int getScore(){ return this.score; }
+
+    /**
+     * Permet de changer la position des points du parcours
+     */
+    public void setPosition(){
+        score += SPEED;
+        for (Point point : points) point.x -= SPEED;
+    }
 }

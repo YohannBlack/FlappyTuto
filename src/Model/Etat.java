@@ -1,9 +1,6 @@
 package Model;
 
-import View.Affichage;
-
 import java.awt.*;
-import java.util.ArrayList;
 
 public class Etat {
 
@@ -20,18 +17,20 @@ public class Etat {
     private int hauteur = 0;
 
     /*** La thread pour pouvoir faire retomber l'ovale ***/
-    private ThreadDown fallDown;
+    private Voler fallDown;
 
     /*** Le parcours ***/
     private Parcours parcours;
 
     public Etat(){
         //On commence le thread pour faire tomber l'ovale
-        this.fallDown = new ThreadDown(this);
+        this.fallDown = new Voler(this);
         fallDown.start();
 
         //Initialisation du parcours
         parcours = new Parcours();
+        //Commencement du thread pour faire avancer le parcours
+        (new Avancer(this.parcours, this)).start();
     }
 
     /**
@@ -60,13 +59,14 @@ public class Etat {
         float totalX = this.parcours.getGAP();
         //La distance entre deux points du parcours en Y
         //On prends l'index = 1 car on enleve un point quand il sort de l'ecran
-        float totalY = this.parcours.getPoints()[1].y - this.parcours.getPoints()[0].y;
+        float totalY = (this.parcours.getPoints()[1].y - this.parcours.getPoints()[0].y)  ;
         //Le Y de notre Ovale
-        float currentY = (this.parcours.getPoints()[1].y - (currentX*totalY)/totalX) * -1;
+        float currentY = (this.parcours.getPoints()[1].y - (currentX*totalY)/totalX);
 
         System.out.println("TotalY = " + totalY);
         System.out.println("CurrentY = " + currentY);
         System.out.println("this.hauteur = " + this.hauteur);
+        
         return this.hauteur > currentY;
     }
 
@@ -96,19 +96,19 @@ public class Etat {
     /**
      * Une thread pour pouvoir faire descendre l'ovale
      */
-    class ThreadDown extends Thread {
+    class Voler extends Thread {
 
         private Etat etat;
         private final int DELAY = 100;
 
-        public ThreadDown(Etat e){
+        public Voler(Etat e){
             this.etat = e;
         }
 
         public void resetCounter(){ this.interrupt();}
 
         /**
-         * Permet de faire descendre l'ovale toutes les
+         * Permet de faire descendre l'ovale toutes les DELAY
          */
         @Override
         public void run(){
