@@ -7,7 +7,7 @@ public class Avancer extends Thread{
     private Etat etat;
 
     /*** Constantes ***/
-    private final int DELAY = 100;
+    private final int DELAY = 75;
 
     public Avancer (Parcours parcours, Etat etat){
         this.parcours = parcours;
@@ -19,7 +19,6 @@ public class Avancer extends Thread{
      */
     public void run(){
         while(!etat.testPerdu()){
-            System.out.println(!etat.testPerdu());
             parcours.setPosition();
             try {
                 Thread.sleep(DELAY);

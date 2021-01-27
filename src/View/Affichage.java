@@ -51,6 +51,7 @@ public class Affichage extends JPanel{
      */
     @Override
     public void paint(Graphics g){
+        g.clearRect(0, 0, WIDTH, HEIGHT);
         super.paint(g);
 
         //Dessin de l'ovale
@@ -81,40 +82,8 @@ public class Affichage extends JPanel{
             Point currentPoint = points[i];
             g.drawLine(previousPoint.x, previousPoint.y, currentPoint.x, currentPoint.y);
         }
+
+        g.setColor(Color.BLACK);
+        g.drawString("Score : " + (etat.getScore()/2), 30, 30);
     }
-
-
-    /**
-     * Permet de repaindre toutes les 30 milsec
-     */
-    class ThreadAffichage extends Thread {
-
-        private final int DELAY = 150;
-        private Affichage affichage;
-
-        public ThreadAffichage(Affichage affichage){
-            this.affichage = affichage;
-        }
-
-        /**
-         * Permet de redessiner au bout d'un certain temps
-         */
-        @Override
-        public void run(){
-            while(true){
-                affichage.revalidate();
-                affichage.repaint();
-                try{
-                    Thread.sleep(DELAY);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-
-
-
-
 }
