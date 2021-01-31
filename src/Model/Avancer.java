@@ -18,13 +18,11 @@ public class Avancer extends Thread{
      * Permet de faire avancer la ligne
      */
     public void run(){
-        while(!etat.testPerdu()){
+        while(etat.testPerdu()){
             parcours.setPosition();
             try {
                 Thread.sleep(DELAY);
             } catch (InterruptedException e) { e.printStackTrace(); }
         }
-
     }
-
 }

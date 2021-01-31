@@ -12,8 +12,9 @@ public class Parcours {
     private final Random rand = new Random();
 
     //L'arrayListe des points du parcours
-    private ArrayList<Point> points = new ArrayList<Point>();
+    public static ArrayList<Point> points = new ArrayList<Point>();
 
+    //Constante pour la distance entre les points
     private final int GAP = 120;
 
     /*** Constante pour l'avancement de la ligne ***/
@@ -32,10 +33,8 @@ public class Parcours {
      * de facon aleatoire
      */
     private void initParcours(){
-        int rapportH = (int) (Affichage.HEIGHT / (float) (Etat.MAX_HEIGHT - Etat.MIN_HEIGHT));
-        int heightOvale = 60 * rapportH;
         //Point de depart
-        Point p = new Point(90 + (Affichage.WIDTH/20)/2, 498 + (heightOvale/2));
+        Point p = new Point(90 + (Affichage.WIDTH/20)/2,  + 500 + Etat.HEIGHT_OVALE/2);
         points.add(p);
         int x = p.x;
         //Points au hasard dans la fenetre

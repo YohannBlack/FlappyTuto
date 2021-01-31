@@ -16,12 +16,6 @@ public class Affichage extends JPanel{
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;
 
-    public int Y_OVALE;
-
-//    /*** Constantes de l'ovale ***/
-//    private final int X_OVAL = 400;
-//    private final int WIDTH_OVAL = 15;
-
     //Contructeur
     public Affichage(Etat etat){
         //Part1.Affichage depend d'un etat
@@ -41,7 +35,12 @@ public class Affichage extends JPanel{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //On commence le thread pour l'affichage
-        (new ThreadAffichage(this)).start();
+        (new ThreadAffichage(this, this.etat)).start();
+    }
+
+    public void endScreen() {
+        JOptionPane.showMessageDialog(frame, "Votre score : " + etat.getScore(), "Game Over", JOptionPane.PLAIN_MESSAGE);
+        System.exit(0);
     }
 
 
@@ -58,15 +57,15 @@ public class Affichage extends JPanel{
         int width = getWidth();
         int height = getHeight();
 
-        //On calcule une rapport pour que l'ovale soit toujours
-        //proportionnelle a la fenetre
-        double rapportH = height / (float)(Etat.MAX_HEIGHT - Etat.MIN_HEIGHT);
-
+        //La largeur de l'ovale
         int widthOvale = width / 20;
+        //Sa position en X
         int xOvale = 90;
 
-        int heightOvale = (int) (etat.HEIGHT_OVALE * rapportH);
-        Y_OVALE = (int) (height - (etat.getHauteur() - Etat.MIN_HEIGHT) * rapportH - heightOvale);
+        //La hauteur de l'ovalee
+        int heightOvale = Etat.HEIGHT_OVALE;
+        //Sa posisiton en Y
+        int Y_OVALE = height - etat.getHauteur();
 
         //Selectionne la couleur et dessin
         g.setColor(Color.BLACK);
@@ -82,8 +81,5 @@ public class Affichage extends JPanel{
             Point currentPoint = points[i];
             g.drawLine(previousPoint.x, previousPoint.y, currentPoint.x, currentPoint.y);
         }
-
-        g.setColor(Color.BLACK);
-        g.drawString("Score : " + (etat.getScore()/2), 30, 30);
     }
 }

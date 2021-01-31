@@ -1,5 +1,7 @@
 package View;
 
+import Model.Etat;
+
 /**
  * Permet de repaindre toutes les 30 milsec
  */
@@ -7,8 +9,10 @@ class ThreadAffichage extends Thread {
 
     private final int DELAY = 150;
     private Affichage affichage;
+    private Etat etat;
 
-    public ThreadAffichage(Affichage affichage) {
+    public ThreadAffichage(Affichage affichage, Etat etat) {
+        this.etat = etat;
         this.affichage = affichage;
     }
 
@@ -17,7 +21,7 @@ class ThreadAffichage extends Thread {
      */
     @Override
     public void run() {
-        while (true) {
+        while (etat.testPerdu()) {
             affichage.revalidate();
             affichage.repaint();
             try {
@@ -26,5 +30,6 @@ class ThreadAffichage extends Thread {
                 e.printStackTrace();
             }
         }
+        affichage.endScreen();
     }
 }
