@@ -21,7 +21,9 @@ class ThreadAffichage extends Thread {
      */
     @Override
     public void run() {
+        //Tant qu'on a pas perdu on continue a redesisner
         while (etat.testPerdu()) {
+            //Redessine
             affichage.revalidate();
             affichage.repaint();
             try {
@@ -30,6 +32,7 @@ class ThreadAffichage extends Thread {
                 e.printStackTrace();
             }
         }
+        //Aaffichage de l'ecran de fin de partie qunad on perd
         affichage.endScreen();
     }
 }

@@ -19,6 +19,7 @@ public class Avancer extends Thread{
      */
     public void run(){
         while(etat.testPerdu()){
+            //Permet de faire avancer la ligne au bout d'un certain temps
             parcours.setPosition();
             try {
                 Thread.sleep(DELAY);

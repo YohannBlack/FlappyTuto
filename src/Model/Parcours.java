@@ -15,6 +15,7 @@ public class Parcours {
     public static ArrayList<Point> points = new ArrayList<Point>();
 
     //Constante pour la distance entre les points
+    //Permet d'avoir des pentes jouables
     private final int GAP = 120;
 
     /*** Constante pour l'avancement de la ligne ***/

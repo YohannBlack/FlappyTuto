@@ -55,16 +55,21 @@ public class Etat {
             hauteur = MIN_HEIGHT;
     }
 
+    /**
+     * Permet de savoir s'il y a collision ou pas
+     * @return vrai si c'est le cas
+     */
     public boolean testPerdu() {
         //La liste des points du parcours
-//        Point[] point = this.parcours.getPoints();
         ArrayList<Point> point = Parcours.points;
 
+        //L'abscisse de l'ovale
         int xOvale = 90 + (Affichage.WIDTH/20)/2;
         //Les points qui sont avant et apres notres ovale
         Point pp = new Point();
         Point np = new Point();
 
+        //La selection des points qui entourent l'ovale
         for(int i = 1; i < point.size(); i++){
             //Si le point est apres notre ovale
             if(point.get(i).x > xOvale) {
